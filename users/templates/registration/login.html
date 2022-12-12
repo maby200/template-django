@@ -1,0 +1,29 @@
+{% extends "../base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="card" style="width: 50%; margin:auto">
+    <div class="card-body">
+      <h2>Login</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-12 mt-3">
+            <input type="text" name="username" class="form-control" />
+          </div>
+          <div class="col-12 mt-3">
+            <input type="password" name="password" class="form-control" />
+          </div>
+          <div class="col-12 d-grid mt-3">
+            <button type="submit" class="btn btn-primary">Iniciar Session</button>
+          </div>
+        </div>
+      </form>
+      {% if not request.user.is_authenticated %}
+      <br>
+        Don't have an account? <a href="{% url 'register' %}">Create one!</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
