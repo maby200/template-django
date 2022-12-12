@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-3-^f2_6#xlt9(w4o14qk5@4hc3de^8jmg!_x2na&#35_3xr96(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['template-django-production-2dd9.up.railway.app']
+ALLOWED_HOSTS = ["*"] #template-django-production-2dd9.up.railway.app
 
 
 # Application definition
@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
-    'projects',
+    'users.apps.UsersConfig',
+    'projects.apps.ProjectsConfig',
+    'celery'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'users.middleware.is_valid_ip',
+    # 'users.middleware.IPIsValid',
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
@@ -141,3 +144,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
+
+
+
+# Celery settings
+CELERY_BROKER_URL = "redis://default:h07soH1MTJDu3HD5SBGV7yeepFup2vpT@redis-17360.c73.us-east-1-2.ec2.cloud.redislabs.com:17360"
+CELERY_RESULT_BACKEND = "redis://default:h07soH1MTJDu3HD5SBGV7yeepFup2vpT@redis-17360.c73.us-east-1-2.ec2.cloud.redislabs.com:17360"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SEREALIZER = "json"
+CELERY_RESULT_SEREALIZER = "json"
+CELERY_TIMEZONE = "America/Lima"
